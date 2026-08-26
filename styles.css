@@ -40,7 +40,7 @@ section h2 {
   color: var(--light);
 }
 
-#generator {
+.generator {
   background-color: var(--light);
   border-radius: 50%;
   border: none;
@@ -58,8 +58,12 @@ section h2 {
   -webkit-tap-highlight-color: transparent;
 }
 
-#generator:active {
+.generator:active {
   background-color: var(--medium);
+}
+
+#movie-icon {
+  padding: 20px 25px 30px 20px;
 }
 
 button {
@@ -84,11 +88,14 @@ button {
 }
 
 footer {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
   padding: 24px;
   text-align: center;
   background: #e8edf4;
   font-size: 0.9rem;
+}
+
+.anchor-bottom {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
