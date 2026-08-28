@@ -7,12 +7,13 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: "Segoe UI", Roboto, sans-serif;
-  margin: 0;
   background: #f4f7fb;
   color: #253238;
 }
+
 header {
   background: linear-gradient(120deg, var(--medium), var(--light));
   color: #fff;
@@ -27,7 +28,7 @@ main {
 }
 
 .small-padding {
-  padding: 0px 20px;
+  padding: 0px 0px 0px;
 }
 
 section {
@@ -62,8 +63,10 @@ section h2 {
 
 .button-container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  padding: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0px;
+  align-items: center;
+  padding-top: 10px;
 }
 
 button[data-difficulty="easy"] {
@@ -117,6 +120,10 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
+  .difficulty-btn {
+    font-size: 14px;
+  }
+
   .anchor-bottom {
     position: absolute;
     bottom: 0px;
