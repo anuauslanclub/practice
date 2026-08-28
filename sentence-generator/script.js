@@ -1,153 +1,121 @@
-const sentences = [
-  "I like tea.",
-  "I like coffee.",
-  "I like milk.",
-  "I like music.",
-  "I like movies.",
-  "I like reading.",
-  "I like cooking.",
-  "I like traveling.",
-  "I like my job.",
-  "I like my school.",
-  "I love my family.",
-  "I love my friends.",
-  "I enjoy this song.",
-  "I enjoy this game.",
-  "This is nice.",
-  "This is good.",
-  "This is bad.",
-  "This is interesting.",
-  "This is boring.",
-  "This tastes good.",
-  "I feel relaxed.",
-  "I feel excited.",
-  "This is my house.",
-  "I live with my family.",
-  "This is my father.",
-  "This is my mother.",
-  "I have one brother.",
-  "I have one sister.",
-  "My family is small.",
-  "My family is happy.",
-  "I help my mother.",
-  "I love my home.",
-  "I tidy my house.",
-  "I feed my pet.",
-  "I am a student.",
-  "I am a teacher.",
-  "I work in an office.",
-  "I go to school daily.",
-  "I listen to the teacher.",
-  "I ask questions.",
-  "I am hard-working",
-  "I need a break.",
-  "I am busy now.",
-  "I am free now.",
-  "I like my job.",
-  "I learn new things.",
-  "I need help.",
-  "Please explain again.",
-  "I will try again.",
-  "I made a mistake.",
-  "Thank you for help.",
-  "I want to go out.",
-  "I need a ticket.",
-  "Where is the bus stop?",
-  "Where is the station?",
-  "I am new here.",
-  "Please help me.",
-  "I want this.",
-  "I don’t want that.",
-  "How much does it cost?",
-  "It is expensive.",
-  "It is cheap.",
-  "I want to buy this.",
-  "Can I try this?",
-  "I like this color.",
-  "I need a bag.",
-  "I will come back.",
-  "I want to walk.",
-  "I am happy today.",
-  "I am sad today.",
-  "I am angry.",
-  "I am calm.",
-  "I am nervous.",
-  "I am confident.",
-  "Please wait.",
-  "Please sit down.",
-  "Excuse me.",
-  "Sorry I’m late!",
-  "I have 100 chickens.",
-  "She told me no.",
-  "I need to go home.",
-  "I want to get a new phone.",
-  "I made this cake.",
-  "I know Ben!",
-  "I think you are wrong.",
-  "I didn't say she stole the money.",
-  "Yesterday, my mother saw a blue bird.",
-  "I came to the football game.",
-  "I wish I knew how to quit you.",
-  "E.T. phone home.",
-  "I use the computer to video call my friends.",
-  "The girl found her hat.",
-  "Last week, I gave her my address.",
-  "The duck is watching me.",
-  "I called the bank yesterday.",
-  "I always try, but I never succeed.",
-  "I asked her, 'Do you hate me'?",
-  "If you build it, he will come.",
-  "You're gonna need a bigger boat.",
-  "There's no place like home.",
-  "I live in Australia.",
-  "I started running last year.",
-  "I moved from Brisbane in 2020.",
-  "I travelled from Perth to Sydney.",
-  "She talked and talked and talked.",
-  "I want to show you my YouTube video.",
-  "Which sport do you play?",
-  "My dog wants to play with your cat.",
-  "I cooked chicken last night.",
-  "I don't believe a word you say!",
-  "What happened?",
-  "I wrote a story about a horse and a rabbit.",
-  "I sat and waited for 5 hours!",
-  "I paid a lot of money to see Charli XCX.",
-  "You met my teacher's husband??",
-  "We should include your uncle.",
-  "My grandmother has finished planning the party.",
-  "I must learn the Nutbush dance.",
-  "I want to change my hair colour.",
-  "Do you understand?",
-  "I watched TV this morning.",
-  "I read horror stories.",
-  "When do you want to go for a walk?",
-  "Do you remember the 21st night of September?",
-  "I want to be a nurse.",
-  "I saw a firefighter at church.",
-  "I will buy an old watch tomorrow.",
-  "True love never dies.",
-  "A crazy French boy is staying in my house.",
-  "I'm 1000 years old, you can't kill me!",
-  "You need to practice to improve your Auslan!",
-  "I can't choose my favourite cheese!"
-];
+const STORAGE_KEY = "sentenceGenState";
+const DATA_URL = "./sentences.json";
 
-const btn = document.getElementById("generator");
+let state = null;
 
-var index = 0;
+// shuffle function
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
-let shuffled = sentences
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
+// build state
+function buildState(data) {
+  const all = shuffle([...data.easy, ...data.medium, ...data.hard]);
+  return {
+    currentDifficulty: "easy",
+    freshState: true,
+    lists: {
+      easy: { sentences: shuffle(data.easy), index: 0 },
+      medium: { sentences: shuffle(data.medium), index: 0 },
+      hard: { sentences: shuffle(data.hard), index: 0 },
+      all: { sentences: all, index: 0 },
+    },
+  };
+}
 
-btn.addEventListener("click", function() {
-    const randomElement = shuffled[index];
-    if (index == shuffled.length - 1) {
-        index = 0;
-    } else {
-        index++;
+// persistence
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadState() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  return raw ? JSON.parse(raw) : null;
+}
+
+// fetch data, restore or build state ---
+async function init() {
+  const res = await fetch(DATA_URL);
+  const data = await res.json();
+  console.log(data);
+
+  const saved = loadState();
+  if (saved) {
+    state = saved; // resume where the user left off
+  } else {
+    state = buildState(data);
+    saveState();
+  }
+
+  render(); // show current sentence for whatever difficulty is active
+  updateActiveButtonStyle();
+}
+
+function setDifficulty(difficulty) {
+  state.currentDifficulty = difficulty;
+  // console.log(btn.dataset.difficulty)
+  saveState();
+  render();
+  updateActiveButtonStyle();
+}
+
+// --- Generator button: advance index, wrap + reshuffle-on-wrap ---
+function generateNext() {
+  if (!state) {
+    return;
+  }
+  state.freshState = false;
+  const current = state.lists[state.currentDifficulty];
+  console.log(state.currentDifficulty, state.lists);
+  const nextIndex = current.index + 1;
+
+  if (nextIndex >= current.sentences.length) {
+    // wrapped around: reshuffle for a fresh pass
+    let reshuffled = shuffle(current.sentences);
+    // avoid new first sentence matching old last sentence
+    const lastShown = current.sentences[current.index];
+    if (reshuffled[0] === lastShown && reshuffled.length > 1) {
+      [reshuffled[0], reshuffled[1]] = [reshuffled[1], reshuffled[0]];
     }
-    document.getElementById("sentence").innerHTML = randomElement;
+    current.sentences = reshuffled;
+    current.index = 0;
+  } else {
+    current.index = nextIndex;
+  }
+
+  saveState();
+  render();
+}
+
+// --- Display ---
+function render() {
+  const current = state.lists[state.currentDifficulty];
+  const display = document.getElementById("sentence-display");
+  if (state.freshState) {
+    return;
+  }
+  display.textContent = current.sentences[current.index];
+}
+
+// --- Visual active state for difficulty buttons ---
+function updateActiveButtonStyle() {
+  document.querySelectorAll(".difficulty-btn").forEach((btn) => {
+    btn.classList.toggle(
+      "active",
+      btn.dataset.difficulty === state.currentDifficulty,
+    );
+  });
+}
+
+// --- Wire up buttons ---
+document.querySelectorAll(".difficulty-btn").forEach((btn) => {
+  btn.addEventListener("click", () => setDifficulty(btn.dataset.difficulty));
 });
+document.getElementById("generate-stc").addEventListener("click", generateNext);
+
+init();

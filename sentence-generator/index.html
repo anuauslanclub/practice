@@ -12,18 +12,28 @@
 <body>
     <header>
         <h1>Sentence Generator</h1>
-        <p>Click the button below for a random sentence to practice your Auslan!</p><p>You can practice by yourself, or sign the sentence to a partner and get them to translate it back into English!</p>
+        <p>Click the button below for a random sentence to practice your Auslan!
+        </p>
+        <p>You can practice by yourself, or sign the sentence to a partner and
+            get them to translate it back into English!</p>
     </header>
-    <main><button type="button" class="generator">💬</button>
-        <section class="flex">
+    <main class="small-padding"><div class="button-container">
+            <button type="button" class="button difficulty-btn" data-difficulty="easy">Easy</button>
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="medium">Medium</button>
+            <button type="button" class="button difficulty-btn" data-difficulty="hard">Hard</button>
+            <button type="button" class="button difficulty-btn" data-difficulty="all">All</button>
+        </div><button type="button" class="generator" id="generate-stc">💬</button>
+        <section class="flex" id="last-section">
             <p class="center">Your sentence is...</p>
-            <h2 class="center" id="sentence">I love Auslan!</h2>
+            <h2 class="center" id="sentence-display">I love Auslan!</h2>
         </section>
     </main>
     <script src="script.js"></script>
     <footer class="anchor-bottom">
         <a href="../">
-            <button type="button" class="button button-link">Return to home</button>
+            <button type="button" class="button button-link">Return to
+                home</button>
         </a>
     </footer>
 </body>

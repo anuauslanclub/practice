@@ -67,10 +67,10 @@ const sentences = [
   "Mean Girls",
   "Legally Blonde",
   "Wicked",
-  "Madagascar"
+  "Madagascar",
 ];
 
-const btn = document.getElementById("generator");
+const btn = document.getElementById("movie-icon");
 
 var index = 0;
 

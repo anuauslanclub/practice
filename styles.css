@@ -1,4 +1,3 @@
-
 :root {
   --dark: #064d5b; /* global scope */
   --medium: #207d9e; /* global scope */
@@ -27,6 +26,10 @@ main {
   padding: 40px 20px;
 }
 
+.small-padding {
+  padding: 0px 20px;
+}
+
 section {
   background: #fff;
   border-radius: 12px;
@@ -53,9 +56,28 @@ section h2 {
   align-self: center;
   font-size: 5rem;
   margin: 10px auto;
-  cursor: pointer;
   -webkit-border-radius: 50%;
   -webkit-tap-highlight-color: transparent;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+}
+
+button[data-difficulty="easy"] {
+  background-color: var(--light);
+}
+
+button[data-difficulty="hard"] {
+  background-color: var(--dark);
+}
+button[data-difficulty="all"] {
+  background-color: white;
+  font-weight: bold;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  color: var(--medium);
 }
 
 .generator:active {
@@ -70,7 +92,7 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-.button-link {
+button {
   border: none;
   background-color: var(--medium);
   color: white;
@@ -94,8 +116,10 @@ footer {
   font-size: 0.9rem;
 }
 
-.anchor-bottom {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
+@media only screen and (max-width: 600px) {
+  .anchor-bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  }
 }
