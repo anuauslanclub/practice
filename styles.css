@@ -128,9 +128,9 @@ footer {
     font-size: 14px;
   }
 
-  .anchor-bottom {
-    position: absolute;
+  /* .anchor-bottom {
+    position: relative;
     bottom: 0px;
     width: 100%;
-  }
+  } */
 }
