@@ -99,7 +99,7 @@ function render() {
   if (state.freshState) {
     return;
   }
-  display.textContent = current.sentences[current.index];
+  display.innerHTML = current.sentences[current.index];
 }
 
 // --- Visual active state for difficulty buttons ---

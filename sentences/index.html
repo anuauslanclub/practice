@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Practice Sentences</title>
+    <link rel="icon" href="../assets/butterfly.ico">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+</head>
+
+<body>
+    <header>
+        <h1>Practice Sentences</h1>
+        <p>Click the button below for a random sentence to practice your Auslan!
+        </p>
+    </header>
+    <main class="small-padding">
+        <div class="button-container">
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="easy">Easy</button>
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="medium">Medium</button>
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="hard">Hard</button>
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="all">All</button>
+        </div>
+        <div><button type="button" class="generator"
+                id="generate-stc">💬</button></div>
+        <section class="flex" id="last-section">
+            <p class="center">Your sentence is...</p>
+            <h2 class="center" id="sentence-display">I love Auslan!</h2>
+        </section>
+        <section>
+            <h2>How to Use</h2>
+            <p>Click the button with a speech bubble to generate a new sentence!</p>
+            <p>You can practice by yourself, or sign the sentence to a partner
+                and
+                get them to translate it back into English!</p>
+                <p><strong>Easy sentences</strong> generally use simple vocabulary that you've likely already learned.</p>
+                <p><strong>Medium sentences</strong> are a bit longer and might have a couple new signs that require you to check Signbank.</p>
+                <p><strong>Hard sentences</strong> generally are a bit more complex and may require checking Signbank and thinking about sentence structure.</p>
+                <p>Remember to always think about sentence structure, especially when it comes to questions!</p>
+                
+        </section>
+    </main>
+    <script src="script.js"></script>
+    <footer class="anchor-bottom">
+        <a href="../">
+            <button type="button" class="button button-link">Return to
+                home</button>
+        </a>
+    </footer>
+</body>

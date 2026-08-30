@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Conversation Starters</title>
+    <link rel="icon" href="../assets/butterfly.ico">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+</head>
+
+<body>
+    <header>
+        <h1>Conversation Starters</h1>
+        <p>Click the button below for a random question to practice your Auslan!
+        </p>
+    </header>
+    <main class="small-padding">
+        <div class="button-container">
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="easy">Easy</button>
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="medium">Medium</button>
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="hard">Hard</button>
+            <button type="button" class="button difficulty-btn"
+                data-difficulty="all">All</button>
+        </div>
+        <div><button type="button" class="generator"
+                id="generate-stc">💬</button></div>
+        <section class="flex" id="last-section">
+            <p class="center">Your question is...</p>
+            <h2 class="center" id="sentence-display">Who is your favourite woman?</h2>
+        </section>
+        <section>
+            <h2>How to Use</h2>
+            <p>Click the button with a speech bubble to generate a new question!</p>
+            <p>You can practice by yourself by answering, or sign the question to a partner and they can answer it!</p>
+                <p><strong>Easy questions</strong> can be answered with one word, usually yes/no or a time (but try answering with a sentence!)</p>
+                <p><strong>Medium questions</strong> might require one word or a couple-word answer.</p>
+                <p><strong>Hard questions</strong> generally require a longer answer.</p>
+                <p>Remember to always think about sentence structure, especially when it comes to questions!</p>
+                
+        </section>
+    </main>
+    <script src="script.js"></script>
+    <footer class="anchor-bottom">
+        <a href="../">
+            <button type="button" class="button button-link">Return to
+                home</button>
+        </a>
+    </footer>
+</body>
