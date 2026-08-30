@@ -30,12 +30,13 @@ function buildState(data) {
 
 // persistence
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  // localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 function loadState() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : null;
+  // const raw = localStorage.getItem(STORAGE_KEY);
+  // return raw ? JSON.parse(raw) : null;
+  return null;
 }
 
 // fetch data, restore or build state ---
